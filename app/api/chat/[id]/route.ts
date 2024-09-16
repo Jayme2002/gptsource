@@ -40,7 +40,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
             messages = oldMessages.map((msg: { role: string; content: string }) => ({
                 role: msg.role as OpenAI.Chat.Completions.ChatCompletionRole,
                 content: msg.content,
-            }));
+            })) as OpenAI.Chat.Completions.ChatCompletionMessage[];
         }
 
         return NextResponse.json(messages, { status: 200 });
