@@ -3,16 +3,13 @@ import SidebarHeader from "./sidebar-header";
 import { Chat as ChatType } from "@prisma/client";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import Chat from "./chat";
-import moment from 'moment'
 
 const RecentConversations = ({ groupedChats }: { groupedChats: { [key: string]: ChatType[] } }) => {
     
-
-
     function renderFilteredChats(chats: ChatType[], title: string) {
         return (
             <div className="flex flex-col mb-2">
-                <AccordionTrigger className="text-xs text-indigo-300/80">{title}</AccordionTrigger>
+                <AccordionTrigger className="text-xs text-indigo-300/80 pl-2">{title}</AccordionTrigger>
                 <AccordionContent className="space-y-2 mt-2 h-full overflow-auto pr-1">
                     {chats.map((chat) => (
                         <Chat key={chat.id} chat={chat} />
@@ -23,7 +20,7 @@ const RecentConversations = ({ groupedChats }: { groupedChats: { [key: string]: 
     }
 
     return (
-        <div className="h-full flex flex-col mb-2 ">
+        <div className="h-full flex flex-col mb-2">
             <SidebarHeader title="Recent Conversations" />
 
             <Accordion

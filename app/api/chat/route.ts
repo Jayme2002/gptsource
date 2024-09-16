@@ -1,13 +1,13 @@
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import prisma from "@/lib/db";
+import { prisma } from "@/lib/db";
 import { checkUserApiLlimit, increateApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 
 import { Configuration, OpenAIApi } from "openai-edge";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 const config = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -63,9 +63,8 @@ export async function POST(req: Request) {
         if (!id) {
             const newChat = await prisma.chat.create({
                 data: {
-                    id: chatId,
                     userId: userId,
-                    isCode,
+                    isCode: isCode || false,
                     title: userMessage.content?.substring(0, 50) || "",
                 },
             });

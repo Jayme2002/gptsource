@@ -2,9 +2,10 @@ import { cn } from "@/lib/utils";
 import UserAvatar from "./user-avatar";
 import AiAvatar from "./ai-avatar";
 import ReactMarkdown from "react-markdown";
-import { Copy } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 import { useRef } from "react";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 type MessageType = {
     role: string;
@@ -13,6 +14,7 @@ type MessageType = {
 
 const Message = ({ message, id }: { message: MessageType; id: string }) => {
     const preRef = useRef<HTMLPreElement | null>(null);
+    const [showCheckmark, setShowCheckmark] = useState(false);
 
     function handleCopy() {
         try {
@@ -26,7 +28,8 @@ const Message = ({ message, id }: { message: MessageType; id: string }) => {
             document.execCommand("copy");
             document.body.removeChild(textarea);
         } finally {
-            toast("Copied to Clipboard");
+            setShowCheckmark(true);
+            setTimeout(() => setShowCheckmark(false), 2000); // Hide checkmark after 2 seconds
         }
     }
 
@@ -51,11 +54,18 @@ const Message = ({ message, id }: { message: MessageType; id: string }) => {
                                     <div className="overflow-auto w-full my-2 bg-black/90 p-4 rounded-lg m-0">
                                         <pre {...props} ref={preRef} />
                                     </div>
-                                    <Copy
-                                        onClick={handleCopy}
-                                        className="absolute right-2 top-2 text-indigo-300/70 hover:text-indigo-300/90 cursor-pointer p-2 w-8 h-8 bg-black/90 z-10 hover:bg-white/10 rounded-sm"
-                                        size={15}
-                                    />
+                                    {showCheckmark ? (
+                                        <Check
+                                            className="absolute right-2 top-2 text-green-500 cursor-pointer p-2 w-8 h-8 bg-black/90 z-10 rounded-sm animate-in fade-in duration-300"
+                                            size={15}
+                                        />
+                                    ) : (
+                                        <Copy
+                                            onClick={handleCopy}
+                                            className="absolute right-2 top-2 text-indigo-300/70 hover:text-indigo-300/90 cursor-pointer p-2 w-8 h-8 bg-black/90 z-10 hover:bg-white/10 rounded-sm"
+                                            size={15}
+                                        />
+                                    )}
                                 </div>
                             ),
                             code: ({ node, ...props }) => (

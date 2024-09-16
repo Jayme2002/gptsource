@@ -14,7 +14,7 @@ const Footer = () => {
                 </a>
             </div>
             <footer className="text-slate-600 text-xs text-center">
-                BeyondGPT @{new Date().getFullYear()}
+                UniGPT @{new Date().getFullYear()}
             </footer>
         </div>
     );

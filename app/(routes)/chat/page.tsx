@@ -1,11 +1,14 @@
 import React from "react";
-import { createNewChat } from "@/lib/api-chat";
-import ChatPage from "../../../components/chat-page";
+import ChatPage from "@/components/chat-page";
 
 const Page = async () => {
-    const newChat = await createNewChat()
-
-    return <ChatPage chatId={newChat.id} />;
+    return (
+        <div className="h-full flex flex-col">
+            <div className="flex-grow">
+                <ChatPage />
+            </div>
+        </div>
+    );
 };
 
 export default Page;

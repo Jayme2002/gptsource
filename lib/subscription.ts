@@ -1,5 +1,5 @@
-import { auth } from "@clerk/nextjs";
-import prisma from "./db";
+import { auth } from "@clerk/nextjs/server";
+import { prisma } from "@/lib/db";
 
 const DAY_IN_MS = 84_400_000;
 
@@ -28,7 +28,7 @@ export const checkSubscription = async () => {
 
     const isValid =
         userSubscription.stripePriceId &&
-        userSubscription.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS > Date.now();
+        (userSubscription.stripeCurrentPeriodEnd as Date).getTime() + DAY_IN_MS > Date.now();
 
-    return !!isValid; 
+    return !!isValid;
 };

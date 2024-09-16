@@ -29,7 +29,7 @@ const ProModal = () => {
                 <DialogHeader>
                     <DialogTitle className="flex flex-col justify-center items-center gap-y-4 py-4">
                         <div className="flex items-center gap-x-2 font-semibold">
-                            Upgrade to BeyondGPT
+                            Upgrade to UniGPT Pro
                             <ProBadge />
                         </div>
                     </DialogTitle>

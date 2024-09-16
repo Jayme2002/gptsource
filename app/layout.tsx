@@ -10,21 +10,21 @@ import TopLoadingBar from "@/components/loading-bar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "BeyondGPT",
+    title: "UniGPT",
     description: "AI Chatbot",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <ClerkProvider appearance={{ baseTheme: dark }}>
-                <html lang="en">
-                    <body className={inter.className}>
-                        <TopLoadingBar />
-                        <ModalProvider />
-                        <ToasterProvider />
-                        {children}
-                    </body>
-                </html>
+        <ClerkProvider>
+            <html lang="en">
+                <body className={inter.className}>
+                    <TopLoadingBar />
+                    <ModalProvider />
+                    <ToasterProvider />
+                    {children}
+                </body>
+            </html>
         </ClerkProvider>
     );
 }

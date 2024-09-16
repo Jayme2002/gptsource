@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
-import { UserButton, auth } from "@clerk/nextjs";
+import { UserButton} from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { getLastChat } from "@/lib/api-chat";
 
 const Navbar = async () => {
@@ -25,17 +26,12 @@ const Navbar = async () => {
                             alt="Logo"
                             src={"/logo.png"}
                             priority></Image>
-                        <h1 className={cn("md:text-lg font-semibold text-slate-300")}>BeyondGPT</h1>
+                        <h1 className={cn("md:text-lg font-semibold text-slate-300")}>UniGPT</h1>
                     </Link>
                 </div>
             </div>
             {userId ? (
                 <div className="flex gap-4 items-center">
-                    <Link href={`/chat/${lastChat?.id}`}>
-                        <Button variant="primary" size="sm">
-                            Go to Chats
-                        </Button>
-                    </Link>
                     <UserButton
                         appearance={{
                             elements: {

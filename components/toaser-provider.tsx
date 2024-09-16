@@ -7,7 +7,7 @@ export const ToasterProvider = () => {
                 error: {
                     icon: null,
                     style: {
-                        backgroundColor: "#7f1d1d",
+                        backgroundColor: "blue",
                         color: "#f8fafc",
                     },
                 },

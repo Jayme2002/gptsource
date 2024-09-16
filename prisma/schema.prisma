@@ -1,7 +1,6 @@
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -9,7 +8,7 @@ generator client {
 }
 
 model Chat {
-  id               String    @id @default(uuid())
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
   userId           String
   title            String
   isFavourite      Boolean   @default(false)
@@ -22,30 +21,26 @@ model Chat {
 }
 
 model Message {
-  id        String   @id @default(uuid())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   role      String
-  content   String   @db.Text
+  content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  chatId    String
+  chatId    String   @db.ObjectId
   chat      Chat     @relation(fields: [chatId], references: [id])
-
-  @@index([chatId])
 }
 
 model Plugin {
-  id        String   @id @default(uuid())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   type      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  chatId    String
+  chatId    String   @db.ObjectId
   chat      Chat     @relation(fields: [chatId], references: [id])
-
-  @@index([chatId])
 }
 
 model UserApiLimit {
-  id        String   @id @default(uuid())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   userId    String   @unique
   count     Int      @default(0)
   createdAt DateTime @default(now())
@@ -53,10 +48,10 @@ model UserApiLimit {
 }
 
 model UserSubscription {
-  id                     String    @id @default(uuid())
+  id                     String    @id @default(auto()) @map("_id") @db.ObjectId
   userId                 String    @unique
   stripeCustomerId       String?   @unique @map("stripe_customer_id")
   stripeSubscriptionId   String?   @unique @map("stripe_subscription_id")
   stripePriceId          String?   @unique @map("stripe_price_id")
-  stripeCurrentPeriodEnd DateTime? @unique @map("stripe_current_period_end")
+  stripeCurrentPeriodEnd DateTime?
 }

@@ -5,7 +5,7 @@ import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
 import Sidebar from "./sidbar";
-import { Chat } from "@prisma/client";
+import { Chat } from '@/types/chat';
 import { usePathname } from "next/navigation";
 
 interface mobileSidebarProps {
@@ -14,7 +14,7 @@ interface mobileSidebarProps {
     isPro: boolean;
 }
 
-const MobileSidebar = ({ apiLimitCount, chats, isPro = false }: mobileSidebarProps) => {
+const MobileSidebar = ({ apiLimitCount, chats, isPro }: mobileSidebarProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
 

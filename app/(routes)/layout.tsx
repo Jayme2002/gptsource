@@ -13,13 +13,16 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
     const isPro = await checkSubscription();
 
     return (
-        <div className="h-full relative">
-            <section className="hidden h-full md:flex md:fixed w-80">
+        <div className="h-full relative flex">
+            <section className="h-full fixed w-80">
                 <Sidebar isPro={isPro} apiLimitCount={apiLimitCount} chats={chats} />
             </section>
-            <section className="md:ms-80 bg-slate-900 h-full flex flex-col">
+            <section className="flex-1 ml-80 bg-slate-900 h-full flex flex-col">
                 <Navbar isPro={isPro} apiLimitCount={apiLimitCount} chats={chats} />
-                <ScrollDownButton />{children}
+                <div className="mt-16 flex-grow overflow-auto">
+                    <ScrollDownButton />
+                    {children}
+                </div>
             </section>
             <Toaster />
         </div>

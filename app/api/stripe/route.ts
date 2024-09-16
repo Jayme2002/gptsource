@@ -1,8 +1,8 @@
 import { MONTHLY_SUBSCRIPTION_FEE } from "@/constants";
-import prisma from "@/lib/db";
+import {prisma} from "@/lib/db";
 import { stripe } from "@/lib/stripe";
 import { absoluteUrl } from "@/lib/utils";
-import { auth, currentUser } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 const settingsUrl = absoluteUrl("/settings");
@@ -34,8 +34,8 @@ export async function GET() {
         }
 
         const stripeSession = await stripe.checkout.sessions.create({
-            success_url: settingsUrl,
-            cancel_url: settingsUrl,
+            success_url: `${settingsUrl}?success=true`,
+            cancel_url: `${settingsUrl}?canceled=true`,
             payment_method_types: ["card"],
             mode: "subscription",
             billing_address_collection: "auto",
@@ -45,8 +45,8 @@ export async function GET() {
                     price_data: {
                         currency: "USD",
                         product_data: {
-                            name: "BeyondGPT Pro",
-                            description: "Unilimited Generation and Access to Exclusive Features.",
+                            name: "UniGPT Pro",
+                            description: "Unlimited Generation and Access to Exclusive Features.",
                         },
                         unit_amount: MONTHLY_SUBSCRIPTION_FEE * 100,
                         recurring: {

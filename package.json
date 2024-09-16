@@ -10,11 +10,11 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.23.5",
+    "@clerk/nextjs": "^5.5.2",
     "@clerk/themes": "^1.7.6",
     "@hookform/resolvers": "^3.3.1",
-    "@prisma/client": "^5.3.1",
-    "@prisma/extension-accelerate": "^0.6.2",
+    "@prisma/client": "^5.19.1",
+    "@prisma/extension-accelerate": "^0.6.3",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-avatar": "^1.0.3",
     "@radix-ui/react-dialog": "1.0.4",
@@ -30,18 +30,21 @@
     "autoprefixer": "10.4.15",
     "axios": "^1.5.0",
     "class-variance-authority": "^0.7.0",
+    "clerk": "^0.8.3",
     "clsx": "^2.0.0",
     "crisp-sdk-web": "^1.0.21",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
     "lucide-react": "^0.276.0",
     "moment": "^2.29.4",
-    "next": "13.4.19",
+    "mongodb-data-api": "^0.4.0",
+    "next": "^13.5.6",
     "next-nprogress-bar": "^2.1.2",
     "next-themes": "^0.2.1",
     "openai": "^4.10.0",
     "openai-edge": "^1.2.2",
     "postcss": "8.4.29",
+    "prisma": "^5.19.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.46.2",
@@ -49,7 +52,7 @@
     "react-icons": "^4.11.0",
     "react-markdown": "^8.0.7",
     "react-textarea-autosize": "^8.5.3",
-    "stripe": "^13.7.0",
+    "stripe": "^16.11.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",
@@ -58,7 +61,6 @@
     "zustand": "^4.4.1"
   },
   "devDependencies": {
-    "encoding": "^0.1.13",
-    "prisma": "^5.3.1"
+    "encoding": "^0.1.13"
   }
 }

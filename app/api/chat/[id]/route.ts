@@ -1,5 +1,5 @@
-import prisma from "@/lib/db";
-import { auth } from "@clerk/nextjs";
+import {prisma} from "@/lib/db";
+import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
@@ -37,7 +37,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
                 },
             });
             messages = messages.concat(
-                oldMessages.map((msg) => ({
+                oldMessages.map((msg: { role: string; content: string }) => ({
                     role: msg.role as OpenAI.Chat.Completions.ChatCompletionRole,
                     content: msg.content,
                 }))
@@ -48,5 +48,51 @@ export async function GET(request: Request, { params }: { params: { id: string }
     } catch (error) {
         console.error(error);
         return new NextResponse("Internal Server Error", { status: 500 });
+    }
+}
+
+export async function DELETE(
+    req: Request,
+    { params }: { params: { id: string } }
+) {
+    try {
+        const { userId } = auth();
+
+        if (!userId) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        const chat = await prisma.chat.findUnique({
+            where: {
+                id: params.id,
+                userId: userId,
+            },
+        });
+
+        if (!chat) {
+            return new NextResponse("Not Found", { status: 404 });
+        }
+
+        // Use a transaction to ensure data consistency
+        await prisma.$transaction(async (prisma) => {
+            // Delete associated messages first
+            await prisma.message.deleteMany({
+                where: {
+                    chatId: params.id,
+                },
+            });
+
+            // Then delete the chat
+            await prisma.chat.delete({
+                where: {
+                    id: params.id,
+                },
+            });
+        });
+
+        return new NextResponse("Chat deleted successfully", { status: 200 });
+    } catch (error) {
+        console.error("[CHAT_DELETE]", error);
+        return new NextResponse("Internal Error", { status: 500 });
     }
 }

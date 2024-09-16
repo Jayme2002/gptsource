@@ -29,10 +29,10 @@ const Hero = () => {
                 {/* content */}
                 <section className="w-full space-y-4 z-10 absolute top-0 md:top-20 ">
                     <h1 className="text-4xl md:text-5xl font-bold text-slate-300 mt-24 md:mt-24">
-                        Chat smarter with BeyondGPT
+                        Chat smarter with UniGPT
                     </h1>
                     <p className="text-slate-300 text-sm">
-                        Unlock Intelligent Conversations with BeyondGPT.
+                        Unlock Intelligent Conversations with UniGPT.
                     </p>
                 </section>
             </div>

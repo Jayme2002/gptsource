@@ -1,6 +1,9 @@
-import prisma from "@/lib/db";
-import { auth } from "@clerk/nextjs";
+import { prisma } from "@/lib/db";
+import { auth } from "@clerk/nextjs/server";
 import OpenAI from "openai";
+import { PrismaClient, Prisma } from "@prisma/client";
+import { Chat, ChatSummary } from '@/types/chat';
+import { ObjectId } from "mongodb";
 
 type messages = {
     id: string;
@@ -12,40 +15,50 @@ export const getMessages = async (id: string) => {
     const { userId } = auth();
 
     if (!userId || !id) {
-        return [];
+        console.error("getMessages: Missing userId or chatId", { userId, id });
+        return null;
     }
 
-    const chat = await prisma.chat.findUnique({
-        where: {
-            id,
-            userId,
-        },
-    });
+    // Add this validation
+    if (!ObjectId.isValid(id)) {
+        console.error("getMessages: Invalid chatId", { id });
+        return null;
+    }
 
-    let messages: messages = [];
-
-    if (chat) {
-        const oldMessages = await prisma.message.findMany({
+    try {
+        const chat = await prisma.chat.findUnique({
             where: {
-                chatId: id,
+                id,
+                userId,
             },
-            orderBy: {
-                createdAt: "asc",
+            include: {
+                Message: {
+                    orderBy: {
+                        createdAt: "asc",
+                    },
+                },
             },
         });
-        messages = messages.concat(
-            oldMessages.map((msg) => ({
-                id: msg.id,
-                role: msg.role as "function" | "system" | "user" | "assistant",
-                content: msg.content,
-            }))
-        );
-    }
 
-    return messages;
+        if (!chat) {
+            console.error("getMessages: Chat not found", { id, userId });
+            return null;
+        }
+
+        const messages = chat.Message.map((msg: { id: string; role: string; content: string }) => ({
+            id: msg.id,
+            role: msg.role as "function" | "system" | "user" | "assistant",
+            content: msg.content,
+        }));
+
+        return messages;
+    } catch (error) {
+        console.error("getMessages: Error fetching messages", error);
+        return null;
+    }
 };
 
-export const getChats = async () => {
+export const getChats = async (): Promise<Chat[]> => {
     const { userId } = auth();
 
     if (!userId) return [];
@@ -54,10 +67,12 @@ export const getChats = async () => {
         where: {
             userId,
             Message: {
-                some: {
-                    id: { not: "" },
-                },
+                some: {} // This ensures at least one message exists
             },
+        },
+        include: {
+            Message: true,
+            Plugin: true,
         },
         orderBy: {
             messageUpdatedAt: "desc",
@@ -70,18 +85,14 @@ export const getChats = async () => {
 export const createNewChat = async () => {
     const { userId } = auth();
 
-    if (!userId) return { id: "" };
+    if (!userId) return null;
 
     const oldEmptyChat = await prisma.chat.findFirst({
         where: {
             userId,
             title: "",
             Message: {
-                every: {
-                    id: {
-                        equals: "",
-                    },
-                },
+                none: {}
             },
         },
     });
@@ -110,21 +121,19 @@ export const createNewChat = async () => {
 export const getLastChat = async () => {
     const { userId } = auth();
 
-    if (!userId) return {id:''};
+    if (!userId) return { id: '' };
 
     const lastChat = await prisma.chat.findFirst({
         where: {
             userId,
             Message: {
-                some: {
-                    id: { not: "" },
-                },
+                some: {} // This ensures at least one message exists
             },
         },
         orderBy: {
-            messageUpdatedAt: "desc",
+            messageUpdatedAt: 'desc',
         },
     });
 
-    return lastChat;
+    return lastChat || { id: '' };
 };
