@@ -6,7 +6,7 @@ import { checkUserApiLlimit, increateApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 import { ChatCompletionRequestMessage } from "openai-edge";
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 
 const config = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,

@@ -7,7 +7,7 @@ import { checkSubscription } from "@/lib/subscription";
 import { Configuration, OpenAIApi } from "openai-edge";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 
 const config = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
