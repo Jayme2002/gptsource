@@ -2,7 +2,7 @@ import {prisma} from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
     try {
@@ -73,7 +73,7 @@ export async function DELETE(
         }
 
         // Use a transaction to ensure data consistency
-        await prisma.$transaction(async (tx: PrismaClient) => {
+        await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
             // Delete associated messages first
             await tx.message.deleteMany({
                 where: {
