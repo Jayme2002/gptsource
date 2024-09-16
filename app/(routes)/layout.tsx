@@ -7,6 +7,8 @@ import { getApiLimitCount } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 import React from "react";
 
+export const dynamic = 'force-dynamic';
+
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
     const apiLimitCount = await getApiLimitCount();
     const chats = await getChats();
