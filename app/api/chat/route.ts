@@ -110,8 +110,7 @@ export async function POST(req: Request) {
         });
         return new StreamingTextResponse(stream, { status: 200 });
     } catch (error) {
-        // Non-API error
         console.log("[CHAT_ERROR]", error);
-        return new NextResponse("Internal Sever Error", { status: 500 });
+        return new NextResponse("Internal Server Error", { status: 500 });
     }
 }

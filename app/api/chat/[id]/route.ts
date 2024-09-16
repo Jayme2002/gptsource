@@ -4,6 +4,8 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { PrismaClient, Prisma } from '@prisma/client';
 
+export const runtime = "edge";
+
 export async function GET(request: Request, { params }: { params: { id: string } }) {
     try {
         const id = params.id;
@@ -72,21 +74,18 @@ export async function DELETE(
             return new NextResponse("Not Found", { status: 404 });
         }
 
-        // Use a transaction to ensure data consistency
-        await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
-            // Delete associated messages first
-            await tx.message.deleteMany({
-                where: {
-                    chatId: params.id,
-                },
-            });
+        // Delete associated messages first
+        await prisma.message.deleteMany({
+            where: {
+                chatId: params.id,
+            },
+        });
 
-            // Then delete the chat
-            await tx.chat.delete({
-                where: {
-                    id: params.id,
-                },
-            });
+        // Then delete the chat
+        await prisma.chat.delete({
+            where: {
+                id: params.id,
+            },
         });
 
         return new NextResponse("Chat deleted successfully", { status: 200 });
