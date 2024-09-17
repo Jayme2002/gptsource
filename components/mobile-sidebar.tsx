@@ -34,12 +34,12 @@ const MobileSidebar = ({ apiLimitCount, chats, isPro }: mobileSidebarProps) => {
 
     return (
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger>
-                <Button asChild variant="ghost" size="icon" className="md:hidden p-2">
-                    <Menu width={30} height={30} />
+            <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                    <Menu />
                 </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="p-0">
+            <SheetContent side="left" className="p-0 w-72">
                 <Sidebar isPro={isPro} apiLimitCount={apiLimitCount} chats={chats} />
             </SheetContent>
         </Sheet>
