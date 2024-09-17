@@ -11,7 +11,6 @@ interface FreeCounterProps {
     isPro: boolean;
     variant?: "default" | "small";  // Add this line
 }
-
 const FreeCounter = ({ apiLimitCount, isPro = false, variant = "default" }: FreeCounterProps) => {
     const proModal = useProModal();
     const [mounted, setMounted] = useState(false);
@@ -20,22 +19,23 @@ const FreeCounter = ({ apiLimitCount, isPro = false, variant = "default" }: Free
         setMounted(true);
     }, []);
 
-    if (!mounted) return;
-
+    if (!mounted) return null;
     if (isPro) return null;
 
     return (
-        <div>
-            <CardContent className="p-0 pb-3 flex flex-col justify-center items-center space-y-4 border-0 border-t rounded-none min-h-[7.4rem]">
+        <div className={variant === "small" ? "text-center" : ""}>
+            <CardContent className={`p-0 ${variant === "small" ? "pb-0" : "pb-3"} flex flex-col justify-center items-center space-y-2 border-0 border-t rounded-none ${variant === "small" ? "min-h-0" : "min-h-[7.4rem]"}`}>
                 <div className="w-full">
-                    <p className="text-center text-slate-300/80 text-sm mb-2">
-                        {apiLimitCount} / {MAX_FREE_COUNTS} Free Generations
+                    <p className={`text-center text-slate-300/80 ${variant === "small" ? "text-xs" : "text-sm"} mb-1`}>
+                        {apiLimitCount} / {MAX_FREE_COUNTS}
                     </p>
                     <Progress className="h-1.5" value={(apiLimitCount / MAX_FREE_COUNTS) * 100} />
                 </div>
-                <Button onClick={proModal.open} variant="outline" className="w-full">
-                    Upgrade &nbsp; <Crown fill="white" size={16} />
-                </Button>
+                {variant === "default" && (
+                    <Button onClick={proModal.open} variant="outline" className="w-full">
+                        Upgrade &nbsp; <Crown fill="white" size={16} />
+                    </Button>
+                )}
             </CardContent>
         </div>
     );
