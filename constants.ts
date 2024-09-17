@@ -1,2 +1,2 @@
 export const MAX_FREE_COUNTS = 5;
-export const MONTHLY_SUBSCRIPTION_FEE = 5;
+export const MONTHLY_SUBSCRIPTION_FEE = 0.5;
