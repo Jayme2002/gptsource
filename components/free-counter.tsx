@@ -9,9 +9,10 @@ import { useProModal } from "@/hooks/use-pro-modal";
 interface FreeCounterProps {
     apiLimitCount: number;
     isPro: boolean;
-    variant?: "default" | "small";  // Add this line
+    variant?: "default" | "small";
 }
-const FreeCounter = ({ apiLimitCount, isPro = false }: FreeCounterProps) => {
+
+const FreeCounter = ({ apiLimitCount, isPro = false, variant = "default" }: FreeCounterProps) => {
     const proModal = useProModal();
     const [mounted, setMounted] = useState(false);
 
@@ -19,13 +20,20 @@ const FreeCounter = ({ apiLimitCount, isPro = false }: FreeCounterProps) => {
         setMounted(true);
     }, []);
 
-    if (!mounted) return;
-
+    if (!mounted) return null;
     if (isPro) return null;
+
+    if (variant === "small") {
+        return (
+            <div className="text-sm text-slate-300/80">
+                {apiLimitCount} / {MAX_FREE_COUNTS}
+            </div>
+        );
+    }
 
     return (
         <div>
-            <CardContent className="p-0 pb-3 flex flex-col justify-center items-center space-y-4 border-0 border-t rounded-none min-h-[7.4rem]">
+            <CardContent className="p-3 pb-4 flex flex-col justify-center items-center space-y-4 border-0 border-t rounded-none">
                 <div className="w-full">
                     <p className="text-center text-slate-300/80 text-sm mb-2">
                         {apiLimitCount} / {MAX_FREE_COUNTS} Free Generations

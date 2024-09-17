@@ -23,11 +23,13 @@ interface navbarProps {
 const Navbar = ({ apiLimitCount, chats, isPro = false }: navbarProps) => {
     const pathname = usePathname();
     return (
-        <div className="fixed top-0 left-0 md:left-80 right-0 z-50 border-b md:border-none md:min-h-[3rem] flex justify-between items-center px-2 py-0.5 bg-slate-900">
+        <div className="fixed top-0 left-0 md:left-80 right-0 z-50 border-b md:border-none md:min-h-[3rem] flex justify-between items-center px-2 py-2 bg-slate-900">
             <div className="md:hidden flex items-center justify-between w-full">
-                <MobileSidebar apiLimitCount={apiLimitCount} chats={chats} isPro={isPro} />
-                <FreeCounter apiLimitCount={apiLimitCount} isPro={isPro} />
                 <div className="flex items-center space-x-2">
+                    <MobileSidebar apiLimitCount={apiLimitCount} chats={chats} isPro={isPro} />
+                    <FreeCounter apiLimitCount={apiLimitCount} isPro={isPro} variant="small" />
+                </div>
+                <div className="flex items-center space-x-3">
                     <UserButton
                         appearance={{
                             elements: {
@@ -40,7 +42,7 @@ const Navbar = ({ apiLimitCount, chats, isPro = false }: navbarProps) => {
                         afterSignOutUrl="/"
                     />
                     <Link href={"/settings"} className="cursor-pointer text-indigo-300">
-                        <Settings strokeWidth={1} className="h-[1.4rem] w-[1.4rem]" />
+                        <Settings strokeWidth={1} className="h-[1.6rem] w-[1.6rem]" />
                     </Link>
                 </div>
             </div>
