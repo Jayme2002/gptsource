@@ -25,8 +25,14 @@ const FreeCounter = ({ apiLimitCount, isPro = false, variant = "default" }: Free
 
     if (variant === "small") {
         return (
-            <div className="text-sm text-slate-300/80">
-                {apiLimitCount} / {MAX_FREE_COUNTS}
+            <div className="flex flex-col items-center">
+                <p className="text-sm text-slate-300/80 mb-2">
+                    {apiLimitCount} / {MAX_FREE_COUNTS}
+                </p>
+                <Progress className="h-1.5 w-[80px]" value={(apiLimitCount / MAX_FREE_COUNTS) * 100} />
+                <Button onClick={proModal.open} variant="outline" size="sm" className="mt-2">
+                    Upgrade
+                </Button>
             </div>
         );
     }
