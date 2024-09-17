@@ -26,12 +26,12 @@ const FreeCounter = ({ apiLimitCount, isPro = false, variant = "default" }: Free
     if (variant === "small") {
         return (
             <div className="flex flex-col items-center justify-center h-full">
-                <p className="text-sm text-slate-300/80 mb-2">
-                    {apiLimitCount} / {MAX_FREE_COUNTS} Free Generations
+                <p className="text-xs text-slate-300/80 mb-1">
+                    {apiLimitCount} / {MAX_FREE_COUNTS}
                 </p>
-                <Progress className="h-1.5 w-[120px] mb-2" value={(apiLimitCount / MAX_FREE_COUNTS) * 100} />
-                <Button onClick={proModal.open} variant="outline" size="sm" className="mt-2">
-                    Upgrade &nbsp; <Crown fill="white" size={16} />
+                <Progress className="h-1 w-[80px] mb-1" value={(apiLimitCount / MAX_FREE_COUNTS) * 100} />
+                <Button onClick={proModal.open} variant="outline" size="sm" className="text-xs px-2 py-1 h-7">
+                    Upgrade <Crown fill="white" size={12} className="ml-1" />
                 </Button>
             </div>
         );
