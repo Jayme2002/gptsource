@@ -6,29 +6,20 @@ import { getChats } from "@/lib/api-chat";
 import { getApiLimitCount } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 import React from "react";
+import { SidebarProvider } from "@/contexts/sidebar-context";
 
 export const dynamic = 'force-dynamic';
 
-const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
-    const apiLimitCount = await getApiLimitCount();
-    const chats = await getChats();
-    const isPro = await checkSubscription();
 
+const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="h-full relative flex">
-            <section className="h-full fixed w-80">
-                <Sidebar isPro={isPro} apiLimitCount={apiLimitCount} chats={chats} />
-            </section>
-            <section className="flex-1 ml-80 bg-slate-900 h-full flex flex-col">
-                <Navbar isPro={isPro} apiLimitCount={apiLimitCount} chats={chats} />
-                <div className="mt-16 flex-grow overflow-auto">
-                    <ScrollDownButton />
-                    {children}
-                </div>
-            </section>
-            <Toaster />
-        </div>
+        <SidebarProvider>
+            <div className="h-full relative">
+                {children}
+            </div>
+        </SidebarProvider>
     );
 };
+
 
 export default DashboardLayout;

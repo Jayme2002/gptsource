@@ -1,22 +1,20 @@
 "use client";
 
 import React from "react";
-import MobileSidebar from "./mobile-sidebar";
 import { UserButton } from "@clerk/nextjs";
-import { Settings } from "lucide-react";
+import { Menu, Settings } from "lucide-react";
 import Link from "next/link";
-import { Chat } from '@/types/chat';
+import { Button } from "./ui/button";
+import { useSidebar } from "@/contexts/sidebar-context";
 
-interface navbarProps {
-    apiLimitCount: number;
-    chats: Chat[];
-    isPro: boolean;
-}
+const Navbar = () => {
+    const { toggleSidebar } = useSidebar();
 
-const Navbar = ({ apiLimitCount, chats, isPro = false }: navbarProps) => {
     return (
         <div className="fixed top-0 w-full z-50 flex items-center justify-between p-4 border-b border-primary/10 bg-secondary">
-            <MobileSidebar apiLimitCount={apiLimitCount} chats={chats} isPro={isPro} />
+            <Button variant="ghost" size="icon" onClick={toggleSidebar} className="md:hidden">
+                <Menu />
+            </Button>
             <div className="flex items-center gap-x-3">
                 <UserButton afterSignOutUrl="/" />
                 <Link href="/settings" className="cursor-pointer text-muted-foreground hover:text-primary">
