@@ -24,9 +24,9 @@ const Navbar = ({ apiLimitCount, chats, isPro = false }: navbarProps) => {
     const pathname = usePathname();
     return (
         <div className="fixed top-0 left-0 md:left-80 right-0 z-50 border-b md:border-none md:min-h-[3rem] flex justify-between items-center px-2 py-0.5 bg-slate-900">
-            <div className="md:hidden flex items-center justify-between w-full">
-                <div className="flex items-center space-x-2">
-                    <MobileSidebar apiLimitCount={apiLimitCount} chats={chats} isPro={isPro} />
+            <div className="md:hidden flex items-center justify-between w-full bg-slate-800 px-2 py-1 rounded-md">
+                <MobileSidebar apiLimitCount={apiLimitCount} chats={chats} isPro={isPro} />
+                <div className="flex-1 mx-2">
                     <FreeCounter apiLimitCount={apiLimitCount} isPro={isPro} variant="small" />
                 </div>
                 <div className="flex items-center space-x-1">

@@ -24,7 +24,7 @@ const FreeCounter = ({ apiLimitCount, isPro = false, variant = "default" }: Free
 
     return (
         <div className={variant === "small" ? "text-center" : ""}>
-            <CardContent className={`p-0 ${variant === "small" ? "pb-0" : "pb-3"} flex flex-col justify-center items-center space-y-2 border-0 border-t rounded-none ${variant === "small" ? "min-h-0" : "min-h-[7.4rem]"}`}>
+            <CardContent className={`p-0 ${variant === "small" ? "py-1" : "pb-3"} flex flex-col justify-center items-center space-y-2 border-0 rounded-none ${variant === "small" ? "min-h-0" : "min-h-[7.4rem]"}`}>
                 <div className="w-full">
                     <p className={`text-center text-slate-300/80 ${variant === "small" ? "text-xs" : "text-sm"} mb-1`}>
                         {apiLimitCount} / {MAX_FREE_COUNTS}
