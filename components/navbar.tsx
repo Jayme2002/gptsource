@@ -25,8 +25,8 @@ const Navbar = ({ apiLimitCount, chats, isPro = false }: navbarProps) => {
     return (
         <div className="fixed top-0 left-0 md:left-80 right-0 z-50 border-b md:border-none md:min-h-[3rem] flex justify-between items-center px-2 py-2 bg-slate-900">
             <div className="md:hidden flex items-center justify-between w-full">
-                <div className="flex items-center space-x-2">
-                    <MobileSidebar apiLimitCount={apiLimitCount} chats={chats} isPro={isPro} />
+                <MobileSidebar apiLimitCount={apiLimitCount} chats={chats} isPro={isPro} />
+                <div className="flex-1 flex justify-center">
                     <FreeCounter apiLimitCount={apiLimitCount} isPro={isPro} variant="small" />
                 </div>
                 <div className="flex items-center space-x-3">
