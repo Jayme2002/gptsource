@@ -9,7 +9,6 @@ import { Chat } from "@prisma/client";
 import Link from "next/link";
 import moment from "moment";
 import { Button } from "./ui/button";
-import { useSidebar } from "@/contexts/sidebar-context";
 
 interface SidebarProps {
     apiLimitCount: number;
@@ -19,7 +18,6 @@ interface SidebarProps {
 
 const Sidebar = ({ apiLimitCount = 0, chats, isPro = false }: SidebarProps) => {
     const groupedChats: { [key: string]: Chat[] } = {};
-    const { isSidebarOpen } = useSidebar();
 
     chats.forEach((chat) => {
         const date = moment(chat.messageUpdatedAt).format("YYYY-MM-DD");
