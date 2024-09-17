@@ -16,6 +16,12 @@ interface SidebarProps {
     isPro: boolean;
 }
 
+interface FreeCounterProps {
+    apiLimitCount: number;
+    isPro: boolean;
+    variant?: "default" | "small";
+}
+
 const Sidebar = ({ apiLimitCount = 0, chats, isPro = false }: SidebarProps) => {
     const groupedChats: { [key: string]: Chat[] } = {};
 

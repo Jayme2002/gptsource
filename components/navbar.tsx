@@ -10,6 +10,7 @@ import { Chat } from '@/types/chat';
 import Header from "./header";
 import { UserButton } from "@clerk/nextjs";
 import { Settings } from "lucide-react";
+import FreeCounter from "./free-counter";
 
 // Remove the local Chat type definition
 
@@ -22,7 +23,11 @@ interface navbarProps {
 const Navbar = ({ apiLimitCount, chats, isPro = false }: navbarProps) => {
     const pathname = usePathname();
     return (
-        <div className="fixed top-0 left-80 right-0 z-50 border-b md:border-none md:min-h-[4rem] flex justify-end items-center px-2.5 py-1 bg-slate-900">
+        <div className="fixed top-0 left-0 right-0 z-50 border-b md:border-none md:min-h-[4rem] flex justify-between items-center px-2.5 py-1 bg-slate-900">
+            <MobileSidebar apiLimitCount={apiLimitCount} chats={chats} isPro={isPro} />
+            <div className="md:hidden">
+                <FreeCounter apiLimitCount={apiLimitCount} isPro={isPro} variant="small" />
+            </div>
             <div className="flex items-center space-x-2">
                 <UserButton
                     appearance={{
