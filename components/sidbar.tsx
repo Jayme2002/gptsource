@@ -42,7 +42,7 @@ const Sidebar = ({ apiLimitCount = 0, chats, isPro = false }: SidebarProps) => {
     });
 
     return (
-        <div className="flex flex-col h-full w-80 bg-slate-800">
+        <div className="flex flex-col h-full w-full md:w-80 bg-slate-800">
             <div className="flex items-center justify-between p-4">
                 <div className="flex items-center space-x-2">
                     <Zap className="text-indigo-400" size={24} />
