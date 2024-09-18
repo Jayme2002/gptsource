@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <TopLoadingBar />
                     <ModalProvider />
                     <ToasterProvider />
-                    
+                    {children}
                 </body>
             </html>
         </ClerkProvider>
