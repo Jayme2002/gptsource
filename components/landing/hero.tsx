@@ -14,14 +14,7 @@ const Hero = () => {
                         </video>
                         <div className="absolute top-0 mt-1 translate-y-1/4 md:translate-y-1/2 md:mt-11 w-full px-20 scale-50 md:scale-100">
                             <div className="relative pb-20 md:pb-0">
-                                <div className="rounded-lg p-0.5 md:p-2 border border-slate-600/20">
-                                    <img
-                                        className="opacity-60 backdrop-blur-md rounded-lg border border-slate-600/50 mx-auto"
-                                        src={"home.png"}
-                                        alt="home"
-                                    />
-                                </div>
-                                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950 to-slate-950 rounded-lg"></div>
+                                
                             </div>
                         </div>
                     </div>
