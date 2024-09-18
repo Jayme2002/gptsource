@@ -1,22 +1,11 @@
 import PlanDetails from "@/components/plan-details";
-import SubscriptionButton from "@/components/subscription-button";
 import { Card } from "@/components/ui/card";
 import { checkSubscription } from "@/lib/subscription";
 import { Settings } from "lucide-react";
-import React from "react";
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import ClientSettings from './client-settings';
 
 const SettingsPage = async () => {
     const isPro = await checkSubscription();
-    const router = useRouter();
-
-    useEffect(() => {
-        if (router.query.error) {
-            console.error('Error from Stripe:', router.query.error);
-            // Display error to user
-        }
-    }, [router.query]);
 
     return (
         <div className="p-4 md:p-8 pb-2 md:pb-2 h-full mt-24 md:mt-8 flex flex-col justify-between bg-slate-900">
@@ -34,12 +23,7 @@ const SettingsPage = async () => {
                         </p>
                     </div>
                 </div>
-                <p className="text-sm text-slate-300">
-                    {isPro
-                        ? "Currently you are on the Pro plan."
-                        : "Currently you are on the free plan."}
-                </p>
-                <SubscriptionButton isPro={isPro} />
+                <ClientSettings isPro={isPro} />
                 <div className="lg:w-fit">
                     <Card className="p-4 box-border flex flex-col md:flex-row justify-between space-y-3 md:space-y-0 mt-16">
                         <PlanDetails />
