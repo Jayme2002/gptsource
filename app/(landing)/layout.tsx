@@ -6,7 +6,7 @@ const LandingPageLayout = async ({ children }: { children: React.ReactNode }) =>
     return (
         <div className="">
             <Navbar />
-            <CrispProvider />
+            
             {children}
         </div>
     );
