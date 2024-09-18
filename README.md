@@ -1,25 +1,6 @@
 
 
-<!-- PROJECT LOGO -->
-<div align="center">
-  <a href="https://github.com/jayme2002/README-template">
-    <img src="https://github.com/jayme2002/gptsource">
-  </a>
 
-  <h3 align="center">UniGPT</h3>
-
-  <p align="center">
-    ChatGPT clone with enhanced features.
-    <br />
-    <a href="https://github.com/jauharmuhammed/beyondgpt-ai-sass"><strong>Explore the docs »</strong></a>
-    <br />
-    <a href="https://unigpt.ca">View Site</a>
-    ·
-    <a href="https://github.com/jayme2002/gptsource/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/jayme2002/gptsource/issues">Request Feature</a>
-  </p>
-</div>
 
 
 A ChatGPT clone with an improved UI and enhanced features using the OpenAI API. It's a full-fledged AI SaaS application with subscription-based usage, powered by the Vercel AI SDK for efficient edge-runtime execution for the streaming response from api. implemented Clerk authentication payment using Stripe, and Crisp chat support. You can find the deployed project [here.](https://unigpt.ca)
@@ -94,19 +75,4 @@ Settings
 <tr>
 <td width="33%">
 <p align="center">
-  Chat Mobile View
-</p>
-<img src="https://github.com/Jauharmuhammed/beyondgpt-ai-sass/blob/main/assets/mobile%20chat.png">
-</td> 
-<td width="33%">
-<p align="center">
-Crisp Mobile View
-</p>
-<img src="https://github.com/Jauharmuhammed/beyondgpt-ai-sass/blob/main/assets/mobile%20crisp.png">  
-</td>
-<td width="33%">
-<p align="center">
-
-
-
-
+  
