@@ -34,8 +34,8 @@ export async function GET() {
         }
 
         const stripeSession = await stripe.checkout.sessions.create({
-            success_url: `${settingsUrl}?success=true`,
-            cancel_url: `${settingsUrl}?canceled=true`,
+            success_url: settingsUrl,
+            cancel_url: settingsUrl,
             payment_method_types: ["card"],
             mode: "subscription",
             billing_address_collection: "auto",

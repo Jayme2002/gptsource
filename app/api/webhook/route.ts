@@ -20,6 +20,9 @@ export async function POST(req: Request) {
 
     const session = event.data.object as Stripe.Checkout.Session;
 
+    console.log("Received webhook event:", event.type);
+    console.log("Session:", session);
+
     if (event.type === "checkout.session.completed") {
         const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
 

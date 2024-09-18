@@ -4,9 +4,20 @@ import { Card } from "@/components/ui/card";
 import { checkSubscription } from "@/lib/subscription";
 import { Settings } from "lucide-react";
 import React from "react";
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const SettingsPage = async () => {
     const isPro = await checkSubscription();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (router.query.error) {
+            console.error('Error from Stripe:', router.query.error);
+            // Display error to user
+        }
+    }, [router.query]);
+
     return (
         <div className="p-4 md:p-8 pb-2 md:pb-2 h-full mt-24 md:mt-8 flex flex-col justify-between bg-slate-900">
             <div className="space-y-4">
