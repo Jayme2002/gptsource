@@ -6,6 +6,7 @@ import { dark } from "@clerk/themes";
 import ModalProvider from "@/components/modal-provider";
 import { ToasterProvider } from "@/components/toaser-provider";
 import TopLoadingBar from "@/components/loading-bar";
+import { CrispProvider } from "@/components/crisp-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <TopLoadingBar />
                     <ModalProvider />
                     <ToasterProvider />
-                    {children}
+                    
                 </body>
             </html>
         </ClerkProvider>
