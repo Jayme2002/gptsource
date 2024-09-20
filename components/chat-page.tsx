@@ -20,7 +20,7 @@ const ChatPage: React.FC<ChatPageProps> = ({ initialMessages = [], chatId = null
         body: { chatId },
         onFinish: (message) => {
             if (!chatId) {
-                // If it's a new chat, redirect to the chat page with the new chatId
+                // If it's a new chat, redirect to the chat page with the new chatIds
                 router.push(`/chat/${message.id}`);
             }
         },
