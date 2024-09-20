@@ -2,12 +2,11 @@
 
 import React, { useState } from "react";
 import { Button } from "./ui/button";
-import { PlusIcon, MessageSquare } from "lucide-react";
+import { PlusIcon, MessageSquare, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Chat } from '@/types/chat';
 import { UserButton } from "@clerk/nextjs";
-import { Settings } from "lucide-react";
 import FreeCounter from "./free-counter";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import RecentConversations from "./recent-conversations";
@@ -42,6 +41,23 @@ const Navbar = ({ apiLimitCount, chats, isPro = false }: navbarProps) => {
                         <RecentConversations chats={chats} onSelect={() => setIsOpen(false)} />
                     </DropdownMenuContent>
                 </DropdownMenu>
+            </div>
+            <div className="flex items-center space-x-4">
+                <FreeCounter apiLimitCount={apiLimitCount} isPro={isPro} variant="small" />
+                <UserButton
+                    appearance={{
+                        elements: {
+                            avatarBox: {
+                                height: "36px",
+                                width: "36px",
+                            },
+                        },
+                    }}
+                    afterSignOutUrl="/"
+                />
+                <Link href={"/settings"} className="cursor-pointer text-indigo-300">
+                    <Settings strokeWidth={1} className="h-[1.4rem] w-[1.4rem]" />
+                </Link>
             </div>
         </div>
     );
