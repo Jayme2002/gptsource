@@ -2,12 +2,13 @@
 
 import { cn } from "@/lib/utils";
 import type { Chat } from "@prisma/client";
-import { MessageSquare, MoreHorizontal, Trash } from "lucide-react";
+import { MessageSquare, MoreHorizontal, Trash, PaperclipIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { PaperClipIcon } from '@heroicons/react/24/outline';
 
 const Chat = ({ chat }: { chat: Chat }) => {
     const pathname = usePathname();
@@ -15,6 +16,8 @@ const Chat = ({ chat }: { chat: Chat }) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
+    const [selectedImage, setSelectedImage] = useState<File | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleMenu = (e: React.MouseEvent<SVGSVGElement>) => {
         e.stopPropagation();
@@ -38,6 +41,32 @@ const Chat = ({ chat }: { chat: Chat }) => {
         } finally {
             setIsDeleting(false);
         }
+    };
+
+    const handleImageUpload = () => {
+        fileInputRef.current?.click();
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setSelectedImage(file);
+        }
+    };
+
+    const convertImageToBase64 = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                if (typeof reader.result === 'string') {
+                    resolve(reader.result.split(',')[1]);
+                } else {
+                    reject(new Error('Failed to convert image to base64'));
+                }
+            };
+            reader.onerror = (error) => reject(error);
+        });
     };
 
     return (
@@ -68,6 +97,7 @@ const Chat = ({ chat }: { chat: Chat }) => {
                     />
                 )}
                 <MoreHorizontal className="text-indigo-300/70 hover:text-indigo-300/90" size={16} />
+                <PaperclipIcon className="text-indigo-300/70 hover:text-indigo-300/90" size={16} onClick={handleImageUpload} />
             </div>
         </div>
     );

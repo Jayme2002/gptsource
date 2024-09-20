@@ -53,7 +53,9 @@ export async function POST(req: Request) {
                     },
                     data: {
                         isCode,
-                        title: userMessage.content?.substring(0, 50) || "",
+                        title: typeof userMessage.content === 'string' 
+                            ? userMessage.content.substring(0, 50) 
+                            : userMessage.content[0].text.substring(0, 50) || "",
                     },
                 });
             }
@@ -65,7 +67,9 @@ export async function POST(req: Request) {
                 data: {
                     userId: userId,
                     isCode: isCode || false,
-                    title: userMessage.content?.substring(0, 50) || "",
+                    title: typeof userMessage.content === 'string' 
+                        ? userMessage.content.substring(0, 50) 
+                        : userMessage.content[0].text.substring(0, 50) || "",
                 },
             });
 
