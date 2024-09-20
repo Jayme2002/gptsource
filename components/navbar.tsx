@@ -1,18 +1,16 @@
 "use client";
 
-import React from "react";
-import MobileSidebar from "./mobile-sidebar";
+import React, { useState } from "react";
 import { Button } from "./ui/button";
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Chat } from '@/types/chat';
-import Header from "./header";
 import { UserButton } from "@clerk/nextjs";
 import { Settings } from "lucide-react";
 import FreeCounter from "./free-counter";
-
-// Remove the local Chat type definition
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import RecentConversations from "./recent-conversations";
 
 interface navbarProps {
     apiLimitCount: number;
@@ -22,31 +20,31 @@ interface navbarProps {
 
 const Navbar = ({ apiLimitCount, chats, isPro = false }: navbarProps) => {
     const pathname = usePathname();
+    const [isOpen, setIsOpen] = useState(false);
+
     return (
-        <div className="fixed top-0 left-0 md:left-80 right-0 z-50 border-b md:border-none md:min-h-[3rem] flex justify-between items-center px-2 py-2 bg-slate-900">
-            <div className="md:hidden flex items-center justify-between w-full">
-                <MobileSidebar apiLimitCount={apiLimitCount} chats={chats} isPro={isPro} />
-                <div className="flex-1 flex justify-center">
-                    <FreeCounter apiLimitCount={apiLimitCount} isPro={isPro} variant="small" />
-                </div>
-                <div className="flex items-center space-x-3">
-                    <UserButton
-                        appearance={{
-                            elements: {
-                                avatarBox: {
-                                    height: "36px",
-                                    width: "36px",
-                                },
-                            },
-                        }}
-                        afterSignOutUrl="/"
-                    />
-                    <Link href={"/settings"} className="cursor-pointer text-indigo-300">
-                        <Settings strokeWidth={1} className="h-[1.6rem] w-[1.6rem]" />
-                    </Link>
-                </div>
+        <div className="fixed top-0 left-0 right-0 z-50 border-b md:border-none md:min-h-[3rem] flex justify-between items-center px-4 py-2 bg-slate-900">
+            <div className="flex items-center space-x-4">
+                <Link href="/chat/new">
+                    <Button variant="outline" size="sm">
+                        <PlusIcon className="h-4 w-4 mr-2" />
+                        New Chat
+                    </Button>
+                </Link>
+                <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="outline" size="sm">
+                            <MessageSquare className="h-4 w-4 mr-2" />
+                            Chat History
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56">
+                        <RecentConversations groupedChats={chats} onSelect={() => setIsOpen(false)} />
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
-            <div className="hidden md:flex flex-1 justify-end items-center space-x-2">
+            <div className="flex items-center space-x-4">
+                <FreeCounter apiLimitCount={apiLimitCount} isPro={isPro} variant="small" />
                 <UserButton
                     appearance={{
                         elements: {
