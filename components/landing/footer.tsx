@@ -9,9 +9,7 @@ const Footer = () => {
                 &nbsp;&nbsp;
                 <SiNextdotjs />
                 &nbsp; by
-                <a target="_blank" href="https://jauharmuhammed.com" className="text-blue-600">
-                    &nbsp;Jauhar Muhammed
-                </a>
+                
             </div>
             <footer className="text-slate-600 text-xs text-center">
                 UniGPT @{new Date().getFullYear()}
