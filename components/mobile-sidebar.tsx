@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
-import Sidebar from "./sidbar";
+import Sidebar from "./sidebar";
 import { Chat } from '@/types/chat';
 import { usePathname } from "next/navigation";
 

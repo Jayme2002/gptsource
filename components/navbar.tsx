@@ -39,26 +39,9 @@ const Navbar = ({ apiLimitCount, chats, isPro = false }: navbarProps) => {
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56">
-                        <RecentConversations groupedChats={chats} onSelect={() => setIsOpen(false)} />
+                        <RecentConversations chats={chats} onSelect={() => setIsOpen(false)} />
                     </DropdownMenuContent>
                 </DropdownMenu>
-            </div>
-            <div className="flex items-center space-x-4">
-                <FreeCounter apiLimitCount={apiLimitCount} isPro={isPro} variant="small" />
-                <UserButton
-                    appearance={{
-                        elements: {
-                            avatarBox: {
-                                height: "36px",
-                                width: "36px",
-                            },
-                        },
-                    }}
-                    afterSignOutUrl="/"
-                />
-                <Link href={"/settings"} className="cursor-pointer text-indigo-300">
-                    <Settings strokeWidth={1} className="h-[1.4rem] w-[1.4rem]" />
-                </Link>
             </div>
         </div>
     );
